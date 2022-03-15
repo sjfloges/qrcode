@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   qr_flutter:
     git:
-      url: git://github.com/lukef/qr.flutter.git
+      url: https://github.com/theyakka/qr.flutter.git
 
 dev_dependencies:
   flutter_test:
