@@ -1,4 +1,4 @@
-name: qrcode
+name: example
 description: >
   The QR.Flutter example app.
 version: 2.0.0
@@ -14,7 +14,8 @@ dependencies:
   flutter:
     sdk: flutter
   qr_flutter:
-    path: ../
+    git:
+      url: git://github.com/lukef/qr.flutter.git
 
 dev_dependencies:
   flutter_test:
