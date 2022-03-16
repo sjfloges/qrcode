@@ -1,32 +1,70 @@
-/*
- * QR.Flutter
- * Copyright (c) 2019 the QR.Flutter authors.
- * See LICENSE for distribution and usage details.
- */
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_code_scanner_example/page/qr_create_page.dart';
+import 'package:qr_code_scanner_example/page/qr_scan_page.dart';
+import 'package:qr_code_scanner_example/widget/button_widget.dart';
 
-import 'main_screen.dart';
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-void main() => runApp(ExampleApp());
+  runApp(MyApp());
+}
 
-/// The example application class
-class ExampleApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
+  static final String title = 'QR Code Scanner';
+
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-    return MaterialApp(
-      title: 'QR.Flutter',
-      theme: ThemeData.light(),
-      debugShowCheckedModeBanner: false,
-      home: MainScreen(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        theme: ThemeData(
+          primaryColor: Colors.red,
+          scaffoldBackgroundColor: Colors.black,
+        ),
+        home: MainPage(title: title),
+      );
+}
+
+class MainPage extends StatefulWidget {
+  final String title;
+
+  const MainPage({
+    @required this.title,
+  });
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonWidget(
+                text: 'Create QR Code',
+                onClicked: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => QRCreatePage(),
+                )),
+              ),
+              const SizedBox(height: 32),
+              ButtonWidget(
+                text: 'Scan QR Code',
+                onClicked: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => QRScanPage(),
+                )),
+              ),
+            ],
+          ),
+        ),
+      );
 }
